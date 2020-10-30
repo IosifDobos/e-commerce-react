@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // components
 import EmptyCart from '../components/Cart/EmptyCart';
 import CartItem from '../components/Cart/CartItem';
-import { UserContext } from '../context/user';
+// import { UserContext } from '../context/user';
 
 export default function Cart() {
   let user = false;
