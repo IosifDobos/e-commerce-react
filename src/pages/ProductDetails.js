@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams, useHistory } from 'react-router-dom';
 import { ProductContext } from '../context/products';
 // import {CartContext} from '../context/cart';
-
+// components
 import Loading from '../components/Loading';
 
 export default function ProductDetails() {
@@ -12,7 +12,7 @@ export default function ProductDetails() {
   const product = products.find(item => item.id === parseInt(id));
 
   if (products.length === 0) {
-    <Loading />
+    return <Loading />
   }
   else {
     const { image: { url }, title, price, description } = product;
