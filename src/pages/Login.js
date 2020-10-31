@@ -11,7 +11,7 @@ export default function Login() {
   const history = useHistory();
 
   // setup user context
-  const { userLogin } = useContext(UserContext);
+  const { userLogin, alert, showAlert } = useContext(UserContext);
 
   // state values
   const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ export default function Login() {
   const [username, setUsername] = useState('default');
   const [isMember, setIsMember] = useState(true);
 
-  let isEmpty = !email || !password || !username;
+  let isEmpty = !email || !password || !username || alert.show;
 
   const toggleMember = () => {
     setIsMember((prevMember) => {
@@ -30,6 +30,7 @@ export default function Login() {
   };
 
   const handleSubmit = async (e) => {
+    showAlert({ msg: 'accessing user data, please wait...' })
     e.preventDefault();
     let response;
 
@@ -44,11 +45,14 @@ export default function Login() {
       const newUser = { token, username };
 
       userLogin(newUser);
+      showAlert({
+        msg: `you are logged in as: ${username}. show away my friend`
+      })
       history.push("/products");
     }
     else {
       // show alert
-      console.log("error");
+      showAlert({ msg: 'there was an error. please try again...', type: 'danger' })
     }
   };
 
