@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from 'react-router-dom'
 
 export default function Product({ image, title, id, price }) {
-  const img = image.url;
+
   return <article className="product">
     <div className="img-container">
-      <img src={img} alt={title} />
+      <img src={image} alt={title} />
       <Link to={`product/${id}`} className="btn btn-primary product-link">
         details
       </Link>
