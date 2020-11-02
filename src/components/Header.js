@@ -12,7 +12,7 @@ export default function Header() {
   const { user } = useContext(UserContext);
   return (
     <header className="header">
-      <img src={logo} className="logo" alt="Vintage Texh" />
+      <img src={logo} className="logo" alt="Vintage Tech Logo" />
       <nav>
         <ul>
           <div className="">
@@ -27,11 +27,11 @@ export default function Header() {
             </li>
             {user.token && (
               <li>
-                <Link to="/checkout">checkout</Link>
+                <Link to="/checkout">Checkout</Link>
               </li>
             )}
           </div>
-          <div className="">
+          <div>
             <LoginLink />
             <CartLink />
           </div>

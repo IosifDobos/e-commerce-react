@@ -18,3 +18,20 @@ export function featuredProducts(data) {
         return item.featured === true;
     });
 }
+
+// pagination
+export function paginate(products) {
+    // set how many items per page you want
+    const itemsPerPage = 4;
+
+    // calculate total products
+    const numberOfPages = Math.ceil(products.length / itemsPerPage);
+
+    // set up a new product
+    const newProducts = Array.from({ length: numberOfPages }, (_, index) => {
+        const start = index * itemsPerPage;
+        return products.slice(start, start + itemsPerPage);
+    })
+
+    return newProducts;
+}

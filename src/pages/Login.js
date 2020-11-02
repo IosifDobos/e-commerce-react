@@ -26,10 +26,10 @@ export default function Login() {
       let isMember = !prevMember;
       isMember ? setUsername('default') : setUsername('');
       return isMember;
-    })
+    });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     showAlert({ msg: 'accessing user data, please wait...' })
     e.preventDefault();
     let response;
@@ -46,13 +46,13 @@ export default function Login() {
 
       userLogin(newUser);
       showAlert({
-        msg: `you are logged in as: ${username}. show away my friend`
-      })
+        msg: `you are logged in as: ${username}. shop away my friend`
+      });
       history.push("/products");
     }
     else {
       // show alert
-      showAlert({ msg: 'there was an error. please try again...', type: 'danger' })
+      showAlert({ msg: 'there was an error. please try again...', type: 'danger' });
     }
   };
 
@@ -97,7 +97,9 @@ export default function Login() {
             type="submit"
             className="btn btn-block btn-primary"
             onClick={handleSubmit}
-          >Submit</button>
+          >
+            Submit
+          </button>
         )}
         <p className="register-link">
           {isMember ? "need to register? " : "already a member? "}

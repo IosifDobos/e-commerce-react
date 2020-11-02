@@ -7,7 +7,7 @@ export default function Error() {
       <div className="error-container">
         <h1>Oops! It's a dead end</h1>
         <Link to="/" className="btn btn-primary">
-          back home
+          back to homepage
         </Link>
       </div>
     </section>
