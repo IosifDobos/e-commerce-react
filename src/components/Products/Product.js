@@ -5,18 +5,20 @@ import img from '../../assets/mainBcg.jpeg';
 
 export default function Product({ image, title, id, price }) {
 
-  return <article className="product">
-    <div className="img-container">
-      <img src={image || img} alt={title || 'default title'} />
-      <Link to={`product/${id}`} className="btn btn-primary product-link">
-        details
+  return (
+    <article className="product">
+      <div className="img-container">
+        <img src={image || img} alt={title || 'default title'} />
+        <Link to={`product/${id}`} className="btn btn-primary product-link">
+          details
       </Link>
-    </div>
-    <div className="product-footer">
-      <p className="product-title">{title || 'default title'}</p>
-      <p className="product-price">{price || 0.00}</p>
-    </div>
-  </article>
+      </div>
+      <div className="product-footer">
+        <p className="product-title">{title || 'default title'}</p>
+        <p className="product-price">{price || 0.00}</p>
+      </div>
+    </article>
+  )
 }
 
 Product.prototype = {

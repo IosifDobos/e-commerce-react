@@ -10,6 +10,6 @@ export default function FeaturedProducts() {
     return <Loading />
   }
 
-  return <ProductList title="featured product" products={featured} />
+  return <ProductList title="featured products" products={featured} />
 
 }

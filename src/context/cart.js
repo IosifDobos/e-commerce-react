@@ -8,8 +8,8 @@ const CartContext = React.createContext();
 
 function getCartFromLocalStorage() {
     return localStorage.getItem('cart')
-        ?
-        JSON.parse(localStorage.getItem('cart')) : []
+        ? JSON.parse(localStorage.getItem('cart'))
+        : [];
 }
 
 function CartProvider({ children }) {
@@ -27,7 +27,7 @@ function CartProvider({ children }) {
         setCartItems(newCartItems);
         // get the total amount of items from the cart
         let newTotal = cart.reduce((total, cartItem) => {
-            return total += (cartItem.amount * cartItem.price);
+            return (total += (cartItem.amount * cartItem.price));
         }, 0);
         newTotal = parseFloat(newTotal.toFixed(2));
         setTotal(newTotal);
