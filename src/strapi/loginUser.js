@@ -4,11 +4,10 @@ import url from '../utils/URL';
 
 async function logiUser({ email, password }) {
     const response = await axios
-        .post(`${url}/auth/local`,
-            {
-                identifier: email,
-                password
-            })
+        .post(`${url}/auth/local`, {
+            identifier: email,
+            password
+        })
         .catch(error => console.log(error));
     return response;
 }

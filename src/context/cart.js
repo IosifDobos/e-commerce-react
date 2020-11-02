@@ -1,17 +1,19 @@
 // cart context
-import React, { useEffect, useState } from 'react';
-// import localCart from '../utils/localCart';
+import React, { useEffect, useReducer, useState } from 'react';
+import reducer from './reducer';
+import { REMOVE, INCREASE_AMOUNT, DECREASE_AMOUNT, ADD_TO_CART, CLEAR_CART } from './actions';
+
 
 const CartContext = React.createContext();
 
 function getCartFromLocalStorage() {
     return localStorage.getItem('cart')
-        ?
-        JSON.parse(localStorage.getItem('cart')) : []
+        ? JSON.parse(localStorage.getItem('cart'))
+        : [];
 }
 
 function CartProvider({ children }) {
-    const [cart, setCart] = useState(getCartFromLocalStorage());
+    const [cart, dispatch] = useReducer(reducer, getCartFromLocalStorage());
     const [total, setTotal] = useState(0);
     const [cartItems, setCartItems] = useState(0)
 
@@ -25,7 +27,7 @@ function CartProvider({ children }) {
         setCartItems(newCartItems);
         // get the total amount of items from the cart
         let newTotal = cart.reduce((total, cartItem) => {
-            return total += (cartItem.amount * cartItem.price);
+            return (total += (cartItem.amount * cartItem.price));
         }, 0);
         newTotal = parseFloat(newTotal.toFixed(2));
         setTotal(newTotal);
@@ -33,50 +35,36 @@ function CartProvider({ children }) {
 
     //remove item
     const removeItem = id => {
-        setCart([...cart].filter(item => item.id !== id));
+        dispatch({ type: REMOVE, payload: id });
     };
     //increase amount
     const increaseAmount = id => {
-        const newCart = [...cart].map(item => {
-            return item.id === id
-                ? { ...item, amount: item.amount + 1 }
-                : { ...item };
-        })
-        setCart(newCart);
+        dispatch({ type: INCREASE_AMOUNT, payload: id });
     };
     // decrease amount
     const decreaseAmount = (id, amount) => {
         if (amount === 1) {
-            removeItem(id);
+            dispatch({ type: REMOVE, payload: id });
             return;
         }
         else {
-            const newCart = [...cart].map(item => {
-                return item.id === id
-                    ? { ...item, amount: item.amount - 1 }
-                    : { ...item };
-            })
-            setCart(newCart);
+            dispatch({ type: DECREASE_AMOUNT, payload: id });
         }
 
     };
     // add to cart
     const addToCart = product => {
-        const { id, image, title, price } = product;
-        const item = [...cart].find(item => item.id === id);
+        let item = [...cart].find(item => item.id === product.id);
         if (item) {
-            increaseAmount(id);
+            dispatch({ type: INCREASE_AMOUNT, payload: product.id });
             return;
-        }
-        else {
-            const newItem = { id, image, title, price, amount: 1 };
-            const newCart = [...cart, newItem];
-            setCart(newCart);
+        } else {
+            dispatch({ type: ADD_TO_CART, payload: product });
         }
     };
     // clear cart
     const clearCart = () => {
-        setCart([]);
+        dispatch({ type: CLEAR_CART });
     };
 
     return <CartContext.Provider
